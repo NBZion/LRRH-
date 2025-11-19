@@ -332,69 +332,74 @@ int main() {
 
         }
 
-        // Place Character
-        gameArray[player.yPos][player.xPos] = '@';
+        if(running == true) {
+            // Place Character
+            gameArray[player.yPos][player.xPos] = '@';
 
-        // Print Game Board
-        printf("----------------------------------\n");
-        printGameBoard(nGameSize, (char*)gameArray);
+            // Print Game Board
+            printf("----------------------------------\n");
+            printGameBoard(nGameSize, (char*)gameArray);
 
-        // Counter Dashboard
-        printf("----------------------------------\nCounter Dashboard\n");
-        printf("Movements: %d\n", numberOfMoves);
-        printf("Rotates: %d\n", numberOfRotates);
-        printf("Senses: %d\n", numberOfSense);
-        printf("----------------------------------\n");
+            // Counter Dashboard
+            printf("----------------------------------\nCounter Dashboard\n");
+            printf("Movements: %d\n", numberOfMoves);
+            printf("Rotates: %d\n", numberOfRotates);
+            printf("Senses: %d\n", numberOfSense);
+            printf("----------------------------------\n");
 
-        // Display Rotation
-        switch(player.playerDirection) {  
-            case RIGHT:
-                printf("You are Currently Facing Right.\n");
+            // Display Rotation
+            switch(player.playerDirection) {  
+                case RIGHT:
+                    printf("You are Currently Facing Right.\n");
+                    break;
+                case DOWN:
+                    printf("You are Currently Facing Down.\n");
+                    break;
+                case LEFT:
+                    printf("You are Currently Facing Left.\n");
+                    break;
+                case UP:
+                    printf("You are Currently Facing Up.\n");
+                    break;
+            }
+
+            // Display Coordinates
+            printf("You are currently at (%d,%d)\n",player.xPos + 1, player.yPos + 1);
+            printf("----------------------------------\n");
+            printf("ACTIONS:\nw - move forward\nr - rotate\ns - sense\nq - quit\n");
+            printf("----------------------------------\n");
+            printf("What Action Do You Want To Take?: ");
+            scanf(" %c", &actionDecision);
+
+            switch (actionDecision) {
+            case 'w':
+                // Set Previous Position to saved Object
+                gameArray[player.yPos][player.xPos] = savedObject;
+
+                // Move Forward
+                moveForward(&player, &savedObject, (char*) gameArray, nGameSize);
+                numberOfMoves++;
                 break;
-            case DOWN:
-                printf("You are Currently Facing Down.\n");
+            case 'r':
+                rotate(&player);
+                numberOfRotates++;
                 break;
-            case LEFT:
-                printf("You are Currently Facing Left.\n");
+            case 's':
+                sense(nGameSize, (char*) gameArray, &player);
+                numberOfSense++;
                 break;
-            case UP:
-                printf("You are Currently Facing Up.\n");
+            case 'q':
+                running=false;
                 break;
+            default:
+                printf("Invalid Response\n");
+                break;
+            }
         }
-
-        // Display Coordinates
-        printf("You are currently at (%d,%d)\n",player.xPos + 1, player.yPos + 1);
-        printf("----------------------------------\n");
-        printf("ACTIONS:\nw - move forward\nr - rotate\ns - sense\nq - quit\n");
-        printf("----------------------------------\n");
-        printf("What Action Do You Want To Take?: ");
-        scanf(" %c", &actionDecision);
-
-        switch (actionDecision) {
-        case 'w':
-            // Set Previous Position to saved Object
-            gameArray[player.yPos][player.xPos] = savedObject;
-
-            // Move Forward
-            moveForward(&player, &savedObject, (char*) gameArray, nGameSize);
-            numberOfMoves++;
-            break;
-        case 'r':
-            rotate(&player);
-            numberOfRotates++;
-            break;
-        case 's':
-            sense(nGameSize, (char*) gameArray, &player);
-            numberOfSense++;
-            break;
-        case 'q':
-            running=false;
-            break;
-        default:
-            printf("Invalid Response\n");
-            break;
-        }
+        
     }
+
+    // Win/Lose Screen
 
     return 0;
 }

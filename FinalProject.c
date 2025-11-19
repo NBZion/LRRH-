@@ -255,6 +255,7 @@ int main() {
     // Game State
 
     int nGameSize;
+    int gameState; // Soon to be assigned either "L" as Lose or "W" as win
     bool decisionState = false;
 
     // Ask for Game Size
@@ -328,7 +329,12 @@ int main() {
                 savedObject = '*';
                 printf("----------------------------------\nYou Picked up Some Flowers!\n");
                 break; 
-
+            case '_':
+                savedObject = '*';
+                running = false;
+                gameState = 'L';
+                printf("----------------------------------\n\n\nYOU HAVE DIED - You have Fallen into a Pit!\n\n\n----------------------------------\n");
+                break;
 
         }
 

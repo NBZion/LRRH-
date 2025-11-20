@@ -351,7 +351,7 @@ int main() {
                     printf("----------------------------------\n\n\nYou encountered the wolf\nthough since you have bread,\nyou fed it to the wolf and he let you pass\n\n\n----------------------------------\n");
                     player.hasBread = false;
                 }else {
-                    printf("----------------------------------\n\n\nYOU HAVE DIED - You have been eaten by the Wolf!!\n\n\n----------------------------------\n");
+                    printf("----------------------------------\n\n\nYOU HAVE DIED\nYou have been eaten by the Wolf!!\n\n\n----------------------------------\n");
                     running = false;
                 }
                 Sleep(5000);
@@ -360,6 +360,21 @@ int main() {
                 player.hasBread = true;
                 printf("----------------------------------\n\n\nYou Bought a Piece of Bread!\n\n\n----------------------------------\n");
                 Sleep(5000);
+                break;
+            case 'G':
+                if(player.hasBread && player.hasFlower && player.hasWoodsman) {
+                    printf("----------------------------------\n\n\nYOU WIN!\nYou have safely reached Granny with a flower, a piece of bread, and the protection of the woodsman.\nWith these you have succesfully healed your Granny while the woodsman protected you!\n\n\n----------------------------------\n");
+                    running = false;
+                }else if(player.hasBread == false || player.hasFlower == false) {
+                    printf("----------------------------------\n\n\nYOU HAVE DIED\nEven with the protection of the woodsman,\ngranny still fell weak and you, the woodsman, and granny was eaten by the wolf\n\n\n----------------------------------\n");
+                    running = false;
+                }else if(player.hasWoodsman == false) {
+                    printf("----------------------------------\n\n\nYOU HAVE DIED\nWith all your efforts, it wasn't enough, without protection,\nyou and granny got eaten by the wolf\n\n\n----------------------------------\n");
+                    running = false;
+                }
+                break;
+            case 'P':
+
                 break;
 
         }

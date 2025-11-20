@@ -341,14 +341,17 @@ int main() {
                 break;
             case 'W':
                 if(player.hasBread == true) {
-                    printf("----------------------------------\nYou encountered the wolf\n though since you have bread, \nyou fed it to the wolf and he let you pass\n");
+                    printf("----------------------------------\nYou encountered the wolf\nthough since you have bread,\nyou fed it to the wolf and he let you pass\n");
                     player.hasBread = false;
                 }else {
                     printf("----------------------------------\n\n\nYOU HAVE DIED - You have been eaten by the Wolf!!\n\n\n----------------------------------\n");
                     running = false;
                 }
                 break;
-
+            case 'B':
+                player.hasBread = true;
+                printf("----------------------------------\nYou Bought a Piece of Bread!\n");
+                break;
 
         }
 

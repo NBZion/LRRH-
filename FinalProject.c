@@ -6,6 +6,8 @@
     Acknowledgements:
         -  https://www.w3schools.com/
         -  stdbool library (for providing booleans into C)
+        - conio.h
+        - math.h 
 */
 #include <stdio.h>
 #include <stdlib.h>

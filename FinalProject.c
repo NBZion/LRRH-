@@ -340,6 +340,16 @@ int main() {
                 running = false;
                 printf("----------------------------------\n\n\nYOU HAVE DIED - You have Fallen into a Pit!\n\n\n----------------------------------\n");
                 break;
+            case 'W':
+                if(player.hasBread == true) {
+                    printf("----------------------------------\nYou encountered the wolf\n though since you have bread, \nyou fed it to the wolf and he let you pass\n");
+                    player.hasBread = false;
+                }else {
+                    printf("----------------------------------\n\n\nYOU HAVE DIED - You have been eaten by the Wolf!!\n\n\n----------------------------------\n");
+                    running = false;
+                }
+                break;
+
 
         }
 

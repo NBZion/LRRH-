@@ -6,13 +6,13 @@
     Acknowledgements:
         -  https://www.w3schools.com/
         -  stdbool library (for providing booleans into C)
-        - conio.h
-        - math.h 
+        -  windows.h to put sleep function
+        -  math.h 
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <conio.h>
+#include <windows.h>
 #include <math.h>
 
 typedef enum direction {
@@ -333,33 +333,39 @@ int main() {
         char actionDecision;
 
         // Game Logic, In this Phase Game will Update
+        system("cls");
         switch(savedObject) {
             case 'F':
                 player.hasFlower = true;
-                printf("----------------------------------\nYou Picked up Some Flowers!\n");
+                printf("----------------------------------\n\n\nYou Picked up Some Flowers!\n\n\n----------------------------------\n");
+                Sleep(5000);
                 break; 
             case '_':
                 savedObject = '*';
                 running = false;
-                printf("----------------------------------\n\n\nYOU HAVE DIED - You have Fallen into a Pit!\n\n\n----------------------------------\n");
+                printf("----------------------------------\n\n\nYOU HAVE DIED\nYou have Fallen into a Pit!\n\n\n----------------------------------\n");
+                Sleep(5000);
                 break;
             case 'W':
                 if(player.hasBread == true) {
-                    printf("----------------------------------\nYou encountered the wolf\nthough since you have bread,\nyou fed it to the wolf and he let you pass\n");
+                    printf("----------------------------------\n\n\nYou encountered the wolf\nthough since you have bread,\nyou fed it to the wolf and he let you pass\n\n\n----------------------------------\n");
                     player.hasBread = false;
                 }else {
                     printf("----------------------------------\n\n\nYOU HAVE DIED - You have been eaten by the Wolf!!\n\n\n----------------------------------\n");
                     running = false;
                 }
+                Sleep(5000);
                 break;
             case 'B':
                 player.hasBread = true;
-                printf("----------------------------------\nYou Bought a Piece of Bread!\n");
+                printf("----------------------------------\n\n\nYou Bought a Piece of Bread!\n\n\n----------------------------------\n");
+                Sleep(5000);
                 break;
 
         }
-
+        
         if(running == true) {
+            system("cls");
             // Place Character
             gameArray[player.yPos][player.xPos] = player.dirChar;
 
@@ -392,6 +398,8 @@ int main() {
 
             // Display Coordinates
             printf("You are currently at (%d,%d)\n",player.xPos + 1, player.yPos + 1);
+            printf("----------------------------------\n");
+            printf("INVENTORY: HasBread: %s\nHasFlower: %s\nWithWoodsman: %s\n", player.hasBread?"true":"false", player.hasFlower?"true":"false",player.hasWoodsman?"true":"false");
             printf("----------------------------------\n");
             printf("ACTIONS:\nw - move forward\nr - rotate\ns - sense\nq - quit\n");
             printf("----------------------------------\n");

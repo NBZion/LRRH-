@@ -261,7 +261,6 @@ int main() {
     // Game State
 
     int nGameSize;
-    int gameState; // Soon to be assigned either "L" as Lose or "W" as win
     bool decisionState = false;
 
     // Ask for Game Size

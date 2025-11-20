@@ -302,7 +302,7 @@ int main() {
     // Ask & Generate Objects
     // Multiple Objects
     askToGenerate("Pit", '_', nGameSize, (char*)gameArray, true);
-    askToGenerate("Flower", '&', nGameSize, (char*)gameArray, true);
+    askToGenerate("Flower", 'F', nGameSize, (char*)gameArray, true);
     askToGenerate("Bakeshop", 'B', nGameSize, (char*)gameArray, true);
 
     // Single Objects
@@ -330,7 +330,7 @@ int main() {
 
         // Game Logic, In this Phase Game will Update
         switch(savedObject) {
-            case '&':
+            case 'F':
                 player.hasFlower = true;
                 printf("----------------------------------\nYou Picked up Some Flowers!\n");
                 break; 

@@ -71,6 +71,7 @@ void printGameBoard(int nTableSize, char *gameArray) {
 */
 void generateObject(int nTableSize, char *gameArray, char object) {
     bool generated = false;
+    int invalid =0;
     // srand(time(NULL));
     while(generated == false) {
         /*
@@ -79,7 +80,14 @@ void generateObject(int nTableSize, char *gameArray, char object) {
         */
         int x, y;
         printf("Please input X and Y Coordinate for Respecting Object Type(Format of X Y): ");
+        do{
+        	invalid =0;
         scanf("%d%d", &x, &y);
+        if(x<=0||x>nTableSize||y<=0||y>nTableSize){
+        	printf("Out of bounds!/n");
+        	invalid=1;
+        }
+        }while(invalid==1);
 
         // Offset User Input By One As 'Starting Position' Starts in (1,1)
         x-=1;

@@ -79,12 +79,13 @@ void generateObject(int nTableSize, char *gameArray, char object) {
         int y = rand() % nTableSize + 1;
         */
         int x, y;
-        printf("Please input X and Y Coordinate for Respecting Object Type(Format of X Y): ");
         do{
+        printf("Please input X and Y Coordinate for Respecting Object Type(Format of X Y): ");
+        
         	invalid =0;
         scanf("%d%d", &x, &y);
         if(x<=0||x>nTableSize||y<=0||y>nTableSize){
-        	printf("Out of bounds!/n");
+        	printf("Out of bounds!\n");
         	invalid=1;
         }
         }while(invalid==1);
@@ -153,28 +154,33 @@ void askToGenerate(char *type, char object, int nGameSize, char *gameArray, bool
     @param nTableSize The dimension (n) of the n x n game board.
     @return void
 */
-void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSize) {
+void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSize,int 
+*numberOfMoves) {
     switch(player->playerDirection) {
          case RIGHT:
             player->xPos += 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
             break;
         case DOWN:
             player->yPos += 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
             break;
         case LEFT:
             player->xPos -= 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];   
             break;
         case UP:
             player->yPos -= 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];    
@@ -186,11 +192,15 @@ void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSiz
     */
     
     // Boundary Checks
-    if(player->xPos < 0) {player->xPos = 0;}
-    if(player->yPos < 0) {player->yPos = 0;}
+    if(player->xPos < 0) {player->xPos = 0; 
+    (*numberOfMoves)--;}
+    if(player->yPos < 0) {player->yPos = 0;
+    (*numberOfMoves)--;}
 
-    if(player->xPos > nTableSize-1) {player->xPos -= 1;}
-    if(player->yPos > nTableSize-1) {player->yPos -= 1;}
+    if(player->xPos > nTableSize-1) {player->xPos -= 1;
+    (*numberOfMoves)--;}
+    if(player->yPos > nTableSize-1) {player->yPos -= 1;
+    (*numberOfMoves)--;}
 }
 
 /*
@@ -468,8 +478,8 @@ int main() {
                 gameArray[player.yPos][player.xPos] = savedObject;
 
                 // Move Forward
-                moveForward(&player, &savedObject, (char*) gameArray, nGameSize);
-                numberOfMoves++;
+                moveForward(&player, &savedObject, (char*) gameArray, nGameSize,&numberOfMoves);
+        
                 break;
             case 'r':
                 rotate(&player);

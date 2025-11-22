@@ -272,6 +272,7 @@ int main() {
 
     int nGameSize;
     bool decisionState = false;
+    bool moved = false;
 
     // Ask for Game Size
     while(decisionState == false) {
@@ -351,7 +352,10 @@ int main() {
 
         // Game Logic, In this Phase Game will Update
         system("cls");
-        switch(savedObject) {
+
+        if(moved == true) {
+            moved = false;
+            switch(savedObject) {
             case 'F':
                 player.hasFlower = true;
                 printf("----------------------------------\n\n\nYou Picked up Some Flowers!\n\n\n----------------------------------\n");
@@ -397,7 +401,9 @@ int main() {
                 Sleep(5000);
                 break;
 
+            }
         }
+        
         
         if(running == true) {
             system("cls");
@@ -447,6 +453,7 @@ int main() {
                 gameArray[player.yPos][player.xPos] = savedObject;
 
                 // Move Forward
+                moved=true;
                 moveForward(&player, &savedObject, (char*) gameArray, nGameSize);
                 numberOfMoves++;
                 break;

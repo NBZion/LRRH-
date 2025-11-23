@@ -1,7 +1,7 @@
 /*
     Description: A Simple Game about "Red Riding Hood" traversing through a board trying to avoid obstacles and completing the task of getting into granny
     Programmed By: Zion Aemar S. Tagle & Gyan Andrei N. Catabay
-    Last Modified: 11/9/2025
+    Last Modified: 11/24/2025
     Version: v0.6.7
     Acknowledgements:
         -  https://www.w3schools.com/

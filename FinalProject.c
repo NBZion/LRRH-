@@ -1,7 +1,7 @@
 /*
     Description: A Simple Game about "Red Riding Hood" traversing through a board trying to avoid obstacles and completing the task of getting into granny
-    Programmed By: Zion Aemar S. Tagle & Gyan Andrei N. Catabay
-    Last Modified: 11/24/2025
+    Programmed By: Zion Aemar S. Tagle
+    Last Modified: 11/9/2025
     Version: v0.6.7
     Acknowledgements:
         -  https://www.w3schools.com/
@@ -88,6 +88,11 @@ void generateObject(int nTableSize, char *gameArray, char object) {
         	printf("Out of bounds!\n");
         	invalid=1;
         }
+        if(x==1 && y==1){
+        	printf("You cannot place at LRRH's starting position!\n");
+        	invalid=1;
+		}
+        
         }while(invalid==1);
 
         // Offset User Input By One As 'Starting Position' Starts in (1,1)
@@ -97,7 +102,8 @@ void generateObject(int nTableSize, char *gameArray, char object) {
         if(gameArray[y * nTableSize + x] == '*'){
             gameArray[y * nTableSize + x] = object;
             generated = true;
-        }else {
+        }
+		else {
             printf("Position already has Object, Please try again...\n\n");
         }
     }

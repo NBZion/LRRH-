@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <windows.h>
 #include <math.h>
+#include <conio.h>
 
 typedef enum direction {
     UP,
@@ -70,6 +71,7 @@ void printGameBoard(int nTableSize, char *gameArray) {
 */
 void generateObject(int nTableSize, char *gameArray, char object) {
     bool generated = false;
+    int invalid =0;
     // srand(time(NULL));
     while(generated == false) {
         /*
@@ -77,8 +79,16 @@ void generateObject(int nTableSize, char *gameArray, char object) {
         int y = rand() % nTableSize + 1;
         */
         int x, y;
+        do{
         printf("Please input X and Y Coordinate for Respecting Object Type(Format of X Y): ");
+        
+        	invalid =0;
         scanf("%d%d", &x, &y);
+        if(x<=0||x>nTableSize||y<=0||y>nTableSize){
+        	printf("Out of bounds!\n");
+        	invalid=1;
+        }
+        }while(invalid==1);
 
         // Offset User Input By One As 'Starting Position' Starts in (1,1)
         x-=1;
@@ -107,10 +117,22 @@ void generateObject(int nTableSize, char *gameArray, char object) {
 */
 void askToGenerate(char *type, char object, int nGameSize, char *gameArray, bool multiple) {
     int amount;
-    amount=1;
+    int invalid=0;
+    int limit = nGameSize/2;
+    
+    
+    
     if(multiple == true) {
-        printf("\nHow Many %ss Do You Want in The Game?: ", type);
+        do{
+        	invalid=0;
+        	amount =0;
+        printf("\nHow Many %ss Do You Want in The Game? (1-%d): ", type, limit);
         scanf("%d", &amount);
+        if(amount<=0||amount>limit){
+        	printf("Invalid Amount!");
+        	invalid=1;
+        }
+        }while(invalid==1);
     }else {
         printf("\nCurrently Placing %s.\n", type);
     }
@@ -132,28 +154,33 @@ void askToGenerate(char *type, char object, int nGameSize, char *gameArray, bool
     @param nTableSize The dimension (n) of the n x n game board.
     @return void
 */
-void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSize) {
+void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSize,int 
+*numberOfMoves) {
     switch(player->playerDirection) {
          case RIGHT:
             player->xPos += 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
             break;
         case DOWN:
             player->yPos += 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
             break;
         case LEFT:
             player->xPos -= 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];   
             break;
         case UP:
             player->yPos -= 1;
+            (*numberOfMoves)++;
 
             // Set Saved Object
             *savedObject = gameArray[player->yPos * nTableSize + player->xPos];    
@@ -165,11 +192,15 @@ void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSiz
     */
     
     // Boundary Checks
-    if(player->xPos < 0) {player->xPos = 0;}
-    if(player->yPos < 0) {player->yPos = 0;}
+    if(player->xPos < 0) {player->xPos = 0; 
+    (*numberOfMoves)--;}
+    if(player->yPos < 0) {player->yPos = 0;
+    (*numberOfMoves)--;}
 
-    if(player->xPos > nTableSize-1) {player->xPos -= 1;}
-    if(player->yPos > nTableSize-1) {player->yPos -= 1;}
+    if(player->xPos > nTableSize-1) {player->xPos -= 1;
+    (*numberOfMoves)--;}
+    if(player->yPos > nTableSize-1) {player->yPos -= 1;
+    (*numberOfMoves)--;}
 }
 
 /*
@@ -288,7 +319,7 @@ int main() {
     
     // Make Game Board
     
-    char gameArray[nGameSize][nGameSize] = {};
+    char gameArray[nGameSize][nGameSize];
     for (int i = 0;  i<nGameSize; i++) {
         for(int j=0; j<nGameSize; j++ ) {
             gameArray[i][j] = '*';
@@ -445,7 +476,7 @@ int main() {
             printf("ACTIONS:\nw - move forward\nr - rotate\ns - sense\nq - quit\n");
             printf("----------------------------------\n");
             printf("What Action Do You Want To Take?: ");
-            scanf(" %c", &actionDecision);
+            actionDecision = getch();
 
             switch (actionDecision) {
             case 'w':
@@ -453,9 +484,9 @@ int main() {
                 gameArray[player.yPos][player.xPos] = savedObject;
 
                 // Move Forward
-                moved=true;
-                moveForward(&player, &savedObject, (char*) gameArray, nGameSize);
-                numberOfMoves++;
+                moveForward(&player, &savedObject, (char*) gameArray, nGameSize,&numberOfMoves);
+                moved = true;
+   
                 break;
             case 'r':
                 rotate(&player);
@@ -480,3 +511,4 @@ int main() {
 
     return 0;
 }
+

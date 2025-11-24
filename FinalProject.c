@@ -274,7 +274,7 @@ void sense(int nTableSize, char *gameArray, LRRH *player) {
     }
 
     system("cls");
-    
+
     // Return Sensed Object
     switch(sensedObject) {
         case '*':   
@@ -426,7 +426,7 @@ int main() {
                 if(player.hasBread && player.hasFlower && player.hasWoodsman) {
                     printf("----------------------------------\n\n\nYOU WIN!\nYou have safely reached Granny with a flower, a piece of bread, and the protection of the woodsman.\nWith these you have succesfully healed your Granny while the woodsman protected you!\n\n\n----------------------------------\n");
                     running = false;
-                }else if(player.hasBread == false && player.hasWoodsman|| player.hasFlower == false && player.hasWoodsman) {
+                }else if((player.hasBread == false && player.hasWoodsman) || (player.hasFlower == false && player.hasWoodsman)) {
                     printf("----------------------------------\n\n\nYOU HAVE DIED\nEven with the protection of the woodsman,\ngranny still fell weak and you, the woodsman, and granny was eaten by the wolf\n\n\n----------------------------------\n");
                     running = false;
                 }else if(player.hasWoodsman == false) {

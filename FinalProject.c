@@ -273,6 +273,8 @@ void sense(int nTableSize, char *gameArray, LRRH *player) {
             break;
     }
 
+    system("cls");
+    
     // Return Sensed Object
     switch(sensedObject) {
         case '*':   
@@ -298,6 +300,8 @@ void sense(int nTableSize, char *gameArray, LRRH *player) {
             break;
 
     }
+
+    Sleep(2500);
 
 }
 

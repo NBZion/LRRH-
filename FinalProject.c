@@ -168,28 +168,37 @@ void moveForward(LRRH *player, char *savedObject, char *gameArray, int nTableSiz
             (*numberOfMoves)++;
 
             // Set Saved Object
-            *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
+            if(gameArray[player->yPos * nTableSize + player->xPos] != '\0') {
+                *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
+            }
+           
             break;
         case DOWN:
             player->yPos += 1;
             (*numberOfMoves)++;
 
             // Set Saved Object
-            *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
+            if(gameArray[player->yPos * nTableSize + player->xPos] != '\0') {
+                *savedObject = gameArray[player->yPos * nTableSize + player->xPos];
+            }
             break;
         case LEFT:
             player->xPos -= 1;
             (*numberOfMoves)++;
 
             // Set Saved Object
-            *savedObject = gameArray[player->yPos * nTableSize + player->xPos];   
+            if(gameArray[player->yPos * nTableSize + player->xPos] != '\0') {
+                *savedObject = gameArray[player->yPos * nTableSize + player->xPos];   
+            }
             break;
         case UP:
             player->yPos -= 1;
             (*numberOfMoves)++;
 
             // Set Saved Object
-            *savedObject = gameArray[player->yPos * nTableSize + player->xPos];    
+            if(gameArray[player->yPos * nTableSize + player->xPos] != '\0') {
+                *savedObject = gameArray[player->yPos * nTableSize + player->xPos];    
+            }
             break;
     }
 
